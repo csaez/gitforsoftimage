@@ -8,7 +8,7 @@ from PyQt4.QtGui import QMessageBox
 from wishlib.si import sianchor
 from wishlib.qt.QtGui import QDialog
 
-from ..git import git
+from .git import git
 from .layout.gitdialog import GitDialog
 
 
