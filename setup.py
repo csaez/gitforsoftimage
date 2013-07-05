@@ -2,9 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="gitforsoftimage",
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    package_data={"gitforsoftimage.layout": ["ui/*.*", "ui/images/*.*"]},
+    package_data={"gitforsoftimage.layout": ["ui/*.*", "ui/images/*.*"],
+                  "gitforsoftimage": ["data/.gitignore", "data/*.*"]},
     author="Cesar Saez",
     author_email="cesarte@gmail.com",
     description="Integrate git as version control on Softimage.",

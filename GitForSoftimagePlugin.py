@@ -1,10 +1,4 @@
-from wishlib.si import si, log, C, show_qt, sianchor
-from wishlib.qt.QtGui import QDialog
-
-from PyQt4.QtGui import QMessageBox
-from gitforsoftimage import git
-from gitforsoftimage.layout.checkout import Checkout
-from gitforsoftimage.layout.commit import Commit
+from wishlib.si import si, log, C
 
 
 def XSILoadPlugin(in_reg):
@@ -27,69 +21,43 @@ def XSIUnloadPlugin(in_reg):
 
 def BeginFileImport_OnEvent(in_ctxt):
     log("BeginFileImport_OnEvent called", C.siVerbose)
+    from gitforsoftimage.manager import Manager
     filepath = str(in_ctxt.GetAttribute("FileName"))
-    if not git.tracked(filepath):
-        # filepath is not tracked, continue normally
-        return False
-    show_qt(Checkout, modal=True,
-            onshow_event=lambda x: x.ui.file_lineEdit.setText(filepath))
+    Manager(si.ActiveProject.Path).checkout_file(filepath)
     return False
 
 
 def BeginSceneOpen_OnEvent(in_ctxt):
     log("BeginSceneOpen_OnEvent called", C.siVerbose)
+    from gitforsoftimage.manager import Manager
     filepath = str(in_ctxt.GetAttribute("FileName"))
-    if not git.tracked(filepath):
-        # filepath is not tracked, continue normally
-        return False
+    print si.ActiveProject.Path
     if filepath == str(si.ActiveProject.ActiveScene.FileName.Value):
         # create new scene to unlock the actual one
         si.NewScene("", False)
-    show_qt(Checkout, modal=True,
-            onshow_event=lambda x: x.set_filepath(filepath))
+    Manager(si.ActiveProject.Path).checkout_file(filepath)
     return False
 
 
 def EndFileExport_OnEvent(in_ctxt):
     log("EndFileExport_OnEvent called", C.siVerbose)
-    commit(str(in_ctxt.GetAttribute("FileName")))
+    filepath = str(in_ctxt.GetAttribute("FileName"))
+    from gitforsoftimage.manager import Manager
+    Manager(si.ActiveProject.Path).commit_file(filepath)
     return False
 
 
 def EndSceneSave2_OnEvent(in_ctxt):
     log("EndSceneSave2_OnEvent called", C.siVerbose)
-    commit(str(in_ctxt.GetAttribute("FileName")))
+    filepath = str(in_ctxt.GetAttribute("FileName"))
+    from gitforsoftimage.manager import Manager
+    Manager(si.ActiveProject.Path).commit_file(filepath)
     return False
 
 
 def EndSceneSaveAs_OnEvent(in_ctxt):
     log("EndSceneSaveAs_OnEvent called", C.siVerbose)
-    commit(str(in_ctxt.GetAttribute("FileName")))
-    return False
-
-
-def commit(filepath):
-    try:
-        status = git.git("status", filepath, "-s")
-    except:
-        # if there is not repo at filepath git will fail
-        status = ""
-        if init_repo():
-            status = git.git("status", filepath, "-s")
-    if len(status):
-        show_qt(Commit, modal=True,
-                onshow_event=lambda x: x.set_filepath(filepath))
-
-
-def init_repo():
-    anchor = QDialog(sianchor())
-    msg = "Do you want to create a local repository for this project?"
-    dialog = QMessageBox.question(anchor, "GitForSoftimage", msg,
-                                  QMessageBox.Yes | QMessageBox.No,
-                                  QMessageBox.No)
-    anchor.close()
-    if dialog == QMessageBox.Yes:
-        # init repo
-        git.git("init", cwd=si.ActiveProject.Path)
-        return True
+    filepath = str(in_ctxt.GetAttribute("FileName"))
+    from gitforsoftimage.manager import Manager
+    Manager(si.ActiveProject.Path).commit_file(filepath)
     return False
