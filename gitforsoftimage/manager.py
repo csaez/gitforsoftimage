@@ -5,11 +5,23 @@ import shutil
 from collections import namedtuple
 
 from PyQt4.QtGui import QMessageBox
-from wishlib.si import sianchor
+from wishlib.si import sianchor, si
 from wishlib.qt.QtGui import QDialog
 
 from .git import git
 from .layout.gitdialog import GitDialog
+
+
+class Prefs(dict):
+
+    def __init__(self, filepath, *args, **kwds):
+        super(Prefs, self).__init__(*args, **kwds)
+        self.filepath = filepath
+
+    def __setitem__(self, key, value):
+        super(Prefs, self).__setitem__(key, value)
+        with open(self.filepath, "w") as f:
+            json.dump(self, f, indent=4)
 
 
 class Manager(object):
@@ -18,75 +30,78 @@ class Manager(object):
         super(Manager, self).__init__()
         self.repo = repo_dir
         # ensure git is working
-        if self.tracked and len(git("status", cwd=self.repo).stderr):
-            self.git_init()
+        if self.prefs.get("tracked") and len(git("status", cwd=self.repo).stderr):
+            self.git_init(True)
 
-    def git_init(self):
-        # create a wishlib dialog as parent to preserve style
-        anchor = QDialog(sianchor())
-        msg = "Do you want to create a local repository for this project?"
-        dialog = QMessageBox.question(anchor, "GitForSoftimage", msg,
-                                      QMessageBox.Yes | QMessageBox.No,
-                                      QMessageBox.No)
-        anchor.close()  # close parent
-        if dialog == QMessageBox.Yes:
-            git("init", cwd=self.repo)
-            shutil.copy(os.path.join(os.path.dirname(__file__), "data",
-                                     ".gitignore"), self.repo)
-            return
-        self.tracked = False
-
-    @property
-    def tracked(self):
-        return self.prefs.get("tracked")
-
-    @tracked.setter
-    def tracked(self, value):
-        self.prefs["tracked"] = value
-        self.prefs = self.prefs.copy()  # save on disk
-        if value and len(git("status", cwd=self.repo).stderr):
-            self.git_init()
+    def git_init(self, ask=False):
+        if ask:
+            # create a wishlib dialog as parent to preserve style
+            anchor = QDialog(sianchor())
+            msg = "Do you want to create a local repository for this project?"
+            dialog = QMessageBox.question(anchor, "GitForSoftimage", msg,
+                                          QMessageBox.Yes | QMessageBox.No,
+                                          QMessageBox.Yes)
+            anchor.close()  # close parent
+            if dialog == QMessageBox.No:
+                self.prefs["tracked"] = False
+                return
+        git("init", cwd=self.repo)
+        shutil.copy(os.path.join(os.path.dirname(__file__), "data",
+                                 ".gitignore"), self.repo)
+        self.prefs["tracked"] = True
 
     @property
     def prefs(self):
         if hasattr(self, "_prefs"):
             return self._prefs
         filepath = os.path.join(self.repo, "prefs.json")
-        if os.path.exists(filepath):
-            with open(filepath) as f:
-                self._prefs = json.load(f)
-        else:
-            self._prefs = {"tracked": True}
-            with open(filepath, "w") as f:
-                json.dump(self._prefs, f)
+        if not os.path.exists(filepath):
+            shutil.copy(os.path.join(os.path.dirname(__file__), "data",
+                                     "prefs.json"), self.repo)
+        with open(filepath) as f:
+            self._prefs = json.load(f)
+        self._prefs = Prefs(filepath, self._prefs)
         return self._prefs
 
-    @prefs.setter
-    def prefs(self, value):
-        self._prefs = value
-        with open(os.path.join(self.repo, "prefs.json"), "w") as f:
-            json.dump(self._prefs, f)
-
     def commit_file(self, filepath):
-        if not self.tracked or self.repo not in filepath:
+        if not self.prefs["tracked"] or self.repo not in filepath:
             return
         fileinfo = self.get_fileinfo(filepath)
-        value, message = GitDialog.commit(sianchor(), fileinfo)
+        external_files = list()
+        # if we are on the scnene grab external files
+        cond = (
+            str(filepath) == str(si.ActiveProject.ActiveScene.FileName.Value),
+            self.prefs.get("dependencies"))
+        if all(cond):
+            for path in si.ActiveProject.ActiveScene.ExternalFiles:
+                path = str(path.ResolvedPath)
+                cond = (self.repo in path, os.path.exists(path),
+                        len(git("status", path, "-s").stdout))
+                if all(cond):
+                    external_files.append(path)
+        value, data = GitDialog.commit(sianchor(), fileinfo,
+                                       dependencies=external_files)
         if value:
-            git("add", filepath, cwd=self.repo)
-            git("commit", filepath, "-m", message, cwd=self.repo)
+            git("add", filepath, *data.dependencies, cwd=self.repo)
+            git("commit", "-m", data.message, cwd=self.repo)
         return value
 
     def checkout_file(self, filepath):
-        cond = (self.repo in filepath, self.tracked,
+        cond = (self.repo in filepath, self.prefs["tracked"],
                 "??" not in git("status", filepath, "-s").stdout)
         if not all(cond):
-            return
+            return False
         fileinfo = self.get_fileinfo(filepath)
-        value, commit = GitDialog.checkout(sianchor(), fileinfo)
+        # if there's only one commit then select it
+        if len(fileinfo[0].history) == 1:
+            value, commit = True, (fileinfo[0].history[0].commit,
+                                   fileinfo[0].branch)
+            commit = namedtuple("commit_info", "commit, branch")._make(commit)
+        else:
+            value, commit = GitDialog.checkout(sianchor(), fileinfo)
         if value:
             git("checkout", commit.branch)
-            git("checkout", commit.commit, "--", filepath)
+            git("reset", "--soft", commit.commit)
         return value
 
     def get_fileinfo(self, filepath):

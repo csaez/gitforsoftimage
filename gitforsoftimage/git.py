@@ -1,6 +1,6 @@
 import os
 import subprocess
-from collesctions import namedtuple
+from collections import namedtuple
 
 
 def git(*args, **kwds):

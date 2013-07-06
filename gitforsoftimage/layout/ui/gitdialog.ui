@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>438</width>
-    <height>344</height>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -75,6 +75,9 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
        </item>
        <item>
         <widget class="QToolButton" name="branch_button">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>24</width>
@@ -106,6 +109,91 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
        <property name="placeholderText">
         <string>Commit Message</string>
        </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="dependencies_groupBox">
+       <property name="title">
+        <string>Include dependencies</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableWidget" name="dependencies_tableWidget">
+          <property name="tabKeyNavigation">
+           <bool>false</bool>
+          </property>
+          <property name="showDropIndicator" stdset="0">
+           <bool>false</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectItems</enum>
+          </property>
+          <property name="showGrid">
+           <bool>false</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>false</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>false</bool>
+          </property>
+          <property name="cornerButtonEnabled">
+           <bool>false</bool>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>600</number>
+          </attribute>
+          <attribute name="horizontalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>20</number>
+          </attribute>
+          <attribute name="verticalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <row>
+           <property name="text">
+            <string>New Row</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>File</string>
+           </property>
+          </column>
+          <item row="0" column="0">
+           <property name="text">
+            <string>c:\</string>
+           </property>
+           <property name="checkState">
+            <enum>Checked</enum>
+           </property>
+           <property name="flags">
+            <set>ItemIsUserCheckable|ItemIsEnabled</set>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
      <item>
@@ -191,6 +279,8 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <tabstop>branch_comboBox</tabstop>
   <tabstop>branch_button</tabstop>
   <tabstop>message_lineEdit</tabstop>
+  <tabstop>dependencies_groupBox</tabstop>
+  <tabstop>dependencies_tableWidget</tabstop>
   <tabstop>history_groupBox</tabstop>
   <tabstop>history_tableWidget</tabstop>
   <tabstop>ok_buttonBox</tabstop>
@@ -204,11 +294,11 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>320</y>
+     <x>405</x>
+     <y>371</y>
     </hint>
     <hint type="destinationlabel">
-     <x>461</x>
+     <x>437</x>
      <y>329</y>
     </hint>
    </hints>
@@ -220,8 +310,8 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>ok_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>318</y>
+     <x>333</x>
+     <y>371</y>
     </hint>
     <hint type="destinationlabel">
      <x>386</x>
@@ -236,11 +326,11 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>history_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>217</x>
-     <y>154</y>
+     <x>235</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
-     <x>440</x>
+     <x>437</x>
      <y>211</y>
     </hint>
    </hints>
@@ -252,11 +342,11 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>branch_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>96</y>
+     <x>336</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
+     <x>437</x>
      <y>87</y>
     </hint>
    </hints>
@@ -268,11 +358,11 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>branch_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>406</x>
-     <y>82</y>
+     <x>427</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>442</x>
+     <x>437</x>
      <y>117</y>
     </hint>
    </hints>
@@ -284,12 +374,44 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>history_toggled()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>22</x>
-     <y>109</y>
+     <x>31</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
-     <x>441</x>
+     <x>437</x>
      <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dependencies_groupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>dependencies_toggled()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dependencies_tableWidget</sender>
+   <signal>cellClicked(int,int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>dependencies_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>442</x>
+     <y>254</y>
     </hint>
    </hints>
   </connection>
@@ -300,5 +422,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <slot>branch_changed()</slot>
   <slot>branch_clicked()</slot>
   <slot>history_toggled()</slot>
+  <slot>dependencies_toggled()</slot>
+  <slot>dependencies_clicked()</slot>
  </slots>
 </ui>
