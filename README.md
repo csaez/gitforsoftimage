@@ -2,7 +2,7 @@ GitForSoftimage
 ===============
 Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
-GitForSoftimage adds some rudimentary version control abilities to Softimage, it's designed to be used on small or personal projects.
+GitForSoftimage brings Git version control features to Softimage projects.
 
 Dependencies
 ------------

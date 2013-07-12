@@ -2,31 +2,32 @@ import os
 
 from wishlib.si import si
 from wishlib.qt.QtGui import QDialog
+from wishlib.qt.decorators import bussy
 from PyQt4 import uic
 
-from ..manager import Manager
-from ..git import git
+from ..gitutils import git, prefs
 
 
 class Prefs(QDialog):
+    MAPPING = {"tracked": "tracked",
+               "commit": "commit_onsave",
+               "checkout": "checkout_onload",
+               "dependencies": "dependencies"}
 
     def __init__(self, parent=None):
         super(Prefs, self).__init__(parent)
-        self.manager = Manager(si.ActiveProject.Path)
-        self.MAPPING = {"tracked": "tracked",
-                        "commit": "commit_onsave",
-                        "checkout": "checkout_onload",
-                        "dependencies": "dependencies"}
+        self.repo = si.ActiveProject.Path
+        self.prefs = prefs(os.path.join(self.repo, "prefs.json"))
         self.initUI()
 
     def initUI(self):
         uifile = os.path.join(os.path.dirname(__file__), "ui", "prefs.ui")
         self.ui = uic.loadUi(uifile, self)
         # project settings
-        self.ui.project_lineEdit.setText(self.manager.repo)
+        self.ui.project_lineEdit.setText(self.repo)
         for k, v in self.MAPPING.iteritems():
             item = getattr(self.ui, k + "_checkBox")
-            pref = self.manager.prefs.get(v)
+            pref = self.prefs.get(v)
             item.setChecked(bool(pref))
             func = (lambda x=k: self.checkbox_clicked(x))
             item.pressed.connect(func)
@@ -43,7 +44,7 @@ class Prefs(QDialog):
     def checkbox_clicked(self, widget_name):
         pref_name = self.MAPPING.get(widget_name)
         widget = getattr(self.ui, widget_name + "_checkBox")
-        self.manager.prefs[pref_name] = not widget.isChecked()
+        self.prefs[pref_name] = not widget.isChecked()
         print pref_name, not widget.isChecked()
 
     def user_changed(self):
@@ -57,14 +58,15 @@ class Prefs(QDialog):
         self.git_status()
 
     def git_status(self):
-        status = git("version", cwd=self.manager.repo).stdout
+        status = git("version", cwd=self.repo).stdout
         self.ui.status_label.setText("Status:\n" + status)
 
+    @bussy
     def tracked_clicked(self):
         value = self.ui.tracked_checkBox.isChecked()
         self.ui.commit_checkBox.setEnabled(value)
         self.ui.checkout_checkBox.setEnabled(value)
         self.ui.dependencies_checkBox.setEnabled(value)
         self.ui.deleterepo_button.setEnabled(not value)
-        if value and len(git("status", cwd=self.manager.repo).stderr):
-            self.manager.git_init(False)
+        if value and len(git("status", cwd=self.repo).stderr):
+            self.prefs["tracked"] = False
