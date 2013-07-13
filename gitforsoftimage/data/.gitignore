@@ -1,0 +1,21 @@
+#######
+## Git
+#######
+
+.git/
+.gitignore
+
+
+#############
+## Softimage
+#############
+
+[Ss]ystem/
+[Bb]ackup/
+[Rr]ender_*/
+[Tt]humbnails/
+[Ss]imulation/
+prefs.json
+*.lock
+*.scntoc
+*.fgmap
