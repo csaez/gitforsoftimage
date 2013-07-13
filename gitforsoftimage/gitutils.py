@@ -6,6 +6,7 @@ from PyQt4.QtGui import QMessageBox
 import subprocess
 import json
 import os
+import shutil
 
 
 class prefs(dict):
@@ -90,6 +91,16 @@ def hard_checkout(commit, repo):
         anchor.close()
         if ok == QMessageBox.Cancel:
             return
-    git("reset", "--hard", cwd=repo)  # discard unsaved changes
+    git("reset", "--hard", cwd=repo)
     git("checkout", commit, cwd=repo)
-    git("reset", "--hard", cwd=repo)  # discard unsaved changes
+    git("reset", "--hard", cwd=repo)
+
+
+def git_init(repo):
+    if len(git("status", cwd=repo).stderr):
+        # init a new repo
+        data_dir = os.path.join(os.path.dirname(__file__), "data")
+        shutil.copy(os.path.join(data_dir, ".gitignore"), repo)
+        shutil.copy(os.path.join(data_dir, "prefs.json"), repo)
+        git("init", cwd=repo)
+        git("checkout", "-b", "master", cwd=repo)

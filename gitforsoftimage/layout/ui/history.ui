@@ -6,73 +6,115 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>387</width>
-    <height>210</height>
+    <width>334</width>
+    <height>258</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GitForSoftimage - History</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
-    <widget class="QTreeWidget" name="history_treeWidget">
-     <column>
-      <property name="text">
-       <string>Message</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Date</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>User</string>
-      </property>
-     </column>
+    <widget class="QLabel" name="banner_label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 bold italic 18pt &quot;Trebuchet MS&quot;;
+color: rgb(220, 220, 220);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(20, 20, 20, 255), stop:1 rgba(40, 40, 40, 255));</string>
+     </property>
+     <property name="text">
+      <string>Git - History</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="margin">
+      <number>9</number>
+     </property>
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="buttons_vlayout">
+    <layout class="QHBoxLayout" name="contents_layout">
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
+      <number>9</number>
+     </property>
      <item>
-      <widget class="QToolButton" name="ok_button">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Rollback</string>
-       </property>
+      <widget class="QTreeWidget" name="history_treeWidget">
+       <column>
+        <property name="text">
+         <string>Message</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Date</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>User</string>
+        </property>
+       </column>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="cancel_button">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="buttons_vspacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      <layout class="QVBoxLayout" name="buttons_vlayout">
+       <item>
+        <widget class="QToolButton" name="ok_button">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Rollback</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="buttons_vspacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -80,22 +122,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>cancel_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>347</x>
-     <y>44</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>51</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>ok_button</sender>
    <signal>clicked()</signal>

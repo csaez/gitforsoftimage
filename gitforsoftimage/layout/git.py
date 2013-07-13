@@ -6,33 +6,36 @@ from wishlib.si import si
 from wishlib.qt.QtGui import QDialog
 from wishlib.qt.decorators import bussy
 
-from ..gitutils import git, prefs
+from ..gitutils import git, prefs, git_init
 from .history import History
 from .branches import Branches
+from .remotes import Remotes
+from .prefs import Prefs
 
 
 class Git(QDialog):
+    ICONS = {"branch_button": "iconmonstr-direction-6-icon.png",
+             "history_button": "iconmonstr-time-5-icon.png",
+             "prefs_button": "iconmonstr-gear-10-icon.png",
+             "sync_button": "iconmonstr-connection-2-ico.png",
+             "reload_button": "iconmonstr-refresh-3-icon.png"}
 
     def __init__(self, parent=None):
         super(Git, self).__init__(parent)
         self.repo = si.ActiveProject.Path
         self.prefs = prefs(os.path.join(self.repo, "prefs.json"))
-        # init repo
-        si.Git_Init()
-        # ui stuff
+        git_init(self.repo)
         self.initUI()
 
     def initUI(self):
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
         self.ui = uic.loadUi(os.path.join(ui_dir, "git.ui"), self)
         # set icons
-        icons = {"branch_button": "iconmonstr-direction-6-icon.png",
-                 "history_button": "iconmonstr-time-5-icon.png",
-                 "prefs_button": "iconmonstr-wrench-16-icon.png",
-                 "sync_button": "iconmonstr-connection-2-ico.png",
-                 "reload_button": "iconmonstr-refresh-3-icon.png"}
-        for widget, icon_file in icons.iteritems():
-            icon_file = os.path.join(ui_dir, "images", icon_file)
+        images_dir = os.path.join(ui_dir, "images")
+        icon_file = os.path.join(images_dir, "git-icon.png")
+        self.setWindowIcon(QtGui.QIcon(icon_file))
+        for widget, icon_file in self.ICONS.iteritems():
+            icon_file = os.path.join(images_dir, icon_file)
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))
         self.reload_clicked()
 
@@ -94,16 +97,21 @@ class Git(QDialog):
         self.reload_clicked()
 
     def prefs_clicked(self):
-        si.Git_Preferences()
+        self.launcher(Prefs(self), self.ui.prefs_button.icon())
 
     def branch_clicked(self):
         dialog = Branches(self)
         dialog.ui.branch_label.setText(self.ui.branch_button.text())
-        if dialog.exec_():
-            self.reload_clicked()
+        self.launcher(dialog, self.ui.branch_button.icon())
 
-    @bussy
     def history_clicked(self):
-        dialog = History(self)
+        self.launcher(History(self), self.ui.history_button.icon())
+
+    def sync_clicked(self):
+        self.launcher(Remotes(self), self.ui.sync_button.icon())
+
+    def launcher(self, dialog, icon=None):
+        if icon:
+            dialog.setWindowIcon(icon)
         if dialog.exec_():
             self.reload_clicked()

@@ -43,10 +43,13 @@ color: rgb(220, 220, 220);
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(20, 20, 20, 255), stop:1 rgba(40, 40, 40, 255));</string>
      </property>
      <property name="text">
-      <string>GitForSoftimage </string>
+      <string>GitForSoftimage</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="margin">
+      <number>9</number>
      </property>
     </widget>
    </item>
@@ -363,6 +366,22 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>sync_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>sync_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>157</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>440</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>file_clicked()</slot>
@@ -371,5 +390,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <slot>prefs_clicked()</slot>
   <slot>branch_clicked()</slot>
   <slot>reload_clicked()</slot>
+  <slot>sync_clicked()</slot>
  </slots>
 </ui>

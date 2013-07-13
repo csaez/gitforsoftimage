@@ -43,10 +43,13 @@ color: rgb(220, 220, 220);
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(20, 20, 20, 255), stop:1 rgba(40, 40, 40, 255));</string>
      </property>
      <property name="text">
-      <string>Git - Preferences </string>
+      <string>Git - Preferences</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="margin">
+      <number>9</number>
      </property>
     </widget>
    </item>

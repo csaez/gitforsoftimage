@@ -15,10 +15,11 @@ class Merge(QDialog):
         self.repo = si.ActiveProject.Path
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
         self.ui = uic.loadUi(os.path.join(ui_dir, "merge.ui"), self)
+        self.setWindowIcon(parent.windowIcon())
         self.initUI()
 
     def initUI(self):
-        branches = git("branch", cwd=self.repo).stdout.split("\n")
+        branches = git("branch", "-a", cwd=self.repo).stdout.split("\n")
         branches = [x[2:] for x in branches if len(x)]
         self.ui.src_comboBox.addItems(branches)
         self.ui.dst_comboBox.addItems(branches)

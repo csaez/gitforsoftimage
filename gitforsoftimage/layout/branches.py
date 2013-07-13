@@ -24,7 +24,7 @@ class Branches(QDialog):
         self.initUI()
 
     def initUI(self):
-        branches = git("branch", cwd=self.repo).stdout.split("\n")
+        branches = git("branch", "-a", cwd=self.repo).stdout.split("\n")
         self.branches = [x[2:]
                          for x in branches if not x.startswith("*") and len(x)]
         self.list_branches(self.branches)

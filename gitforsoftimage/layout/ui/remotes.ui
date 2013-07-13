@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>278</width>
-    <height>284</height>
+    <width>264</width>
+    <height>289</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Git - Branches</string>
+   <string>GitForSoftimage</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="branch_label">
+    <widget class="QLabel" name="banner_label">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -43,7 +43,7 @@ color: rgb(220, 220, 220);
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(20, 20, 20, 255), stop:1 rgba(40, 40, 40, 255));</string>
      </property>
      <property name="text">
-      <string>current branch</string>
+      <string>Git - Remotes</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -54,60 +54,102 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="margin">
+    <layout class="QHBoxLayout" name="contents_layout">
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
       <number>9</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="leftMargin">
-        <number>0</number>
+      <layout class="QVBoxLayout" name="remotes_layout">
+       <property name="spacing">
+        <number>1</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
-          <number>1</number>
+          <number>3</number>
          </property>
          <item>
-          <widget class="QLineEdit" name="filter_lineEdit">
-           <property name="placeholderText">
-            <string>Filter or create new</string>
+          <widget class="QToolButton" name="reload_button">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Reload</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="add_button">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Add</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="remove_button">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
-             <width>24</width>
-             <height>24</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
            <property name="text">
-            <string>-</string>
+            <string>Remove</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontal_spacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
        <item>
-        <widget class="QListWidget" name="branches_listWidget"/>
+        <widget class="QListWidget" name="remotes_listWidget"/>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="action_layout">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <item>
-        <widget class="QToolButton" name="ok_button">
+        <widget class="QToolButton" name="fetch_button">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -121,12 +163,12 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
           </size>
          </property>
          <property name="text">
-          <string>Checkout</string>
+          <string>Fetch</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="merge_button">
+        <widget class="QToolButton" name="push_button">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -140,12 +182,12 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
           </size>
          </property>
          <property name="text">
-          <string>Merge</string>
+          <string>Push</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="vertical_spacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -164,43 +206,59 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   </layout>
  </widget>
  <tabstops>
-  <tabstop>filter_lineEdit</tabstop>
-  <tabstop>branches_listWidget</tabstop>
+  <tabstop>remotes_listWidget</tabstop>
+  <tabstop>reload_button</tabstop>
+  <tabstop>add_button</tabstop>
   <tabstop>remove_button</tabstop>
-  <tabstop>ok_button</tabstop>
-  <tabstop>merge_button</tabstop>
+  <tabstop>push_button</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>ok_button</sender>
+   <sender>reload_button</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>accept()</slot>
+   <slot>reload_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>240</x>
-     <y>76</y>
+     <x>38</x>
+     <y>67</y>
     </hint>
     <hint type="destinationlabel">
-     <x>283</x>
-     <y>46</y>
+     <x>263</x>
+     <y>144</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>filter_lineEdit</sender>
-   <signal>textChanged(QString)</signal>
+   <sender>add_button</sender>
+   <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>filter_changed()</slot>
+   <slot>add_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>106</x>
-     <y>75</y>
+     <x>80</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>281</x>
-     <y>116</y>
+     <x>263</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>remotes_listWidget</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>Dialog</receiver>
+   <slot>remotes_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>213</y>
     </hint>
    </hints>
   </connection>
@@ -211,70 +269,54 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>remove_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>190</x>
-     <y>75</y>
+     <x>117</x>
+     <y>66</y>
     </hint>
     <hint type="destinationlabel">
-     <x>279</x>
-     <y>175</y>
+     <x>264</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>branches_listWidget</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>Dialog</receiver>
-   <slot>branches_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>280</x>
-     <y>215</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>branches_listWidget</sender>
-   <signal>currentRowChanged(int)</signal>
-   <receiver>Dialog</receiver>
-   <slot>branches_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>152</x>
-     <y>166</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>277</x>
-     <y>243</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>merge_button</sender>
+   <sender>fetch_button</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>merge_clicked()</slot>
+   <slot>fetch_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>100</y>
+     <x>216</x>
+     <y>66</y>
     </hint>
     <hint type="destinationlabel">
      <x>272</x>
-     <y>277</y>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>push_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>236</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>120</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>filter_changed()</slot>
+  <slot>reload_clicked()</slot>
   <slot>add_clicked()</slot>
+  <slot>remotes_clicked()</slot>
   <slot>remove_clicked()</slot>
-  <slot>branches_clicked()</slot>
-  <slot>branches_changed()</slot>
-  <slot>merge_clicked()</slot>
+  <slot>fetch_clicked()</slot>
+  <slot>push_clicked()</slot>
  </slots>
 </ui>
