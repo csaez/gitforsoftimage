@@ -3,7 +3,6 @@
 #######
 
 .git/
-.gitignore
 
 
 #############
@@ -15,7 +14,6 @@
 [Rr]ender_*/
 [Tt]humbnails/
 [Ss]imulation/
-prefs.json
 *.lock
 *.scntoc
 *.fgmap

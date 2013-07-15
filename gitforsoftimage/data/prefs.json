@@ -1,5 +1,4 @@
 {
-    "tracked": true,
-    "commit_onsave": true,
-    "checkout_onload": false
+    "tracked": false,
+    "commit_onsave": false
 }

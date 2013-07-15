@@ -34,13 +34,6 @@ class prefs(dict):
         else:
             super(prefs, self).__getitem__(key)
 
-    def get(self, key):
-        try:
-            result = self.__getitem__(key)
-        except:
-            result = super(prefs, self).get(key)
-        return result
-
 
 def git(*args, **kwds):
     # get command args
@@ -97,10 +90,14 @@ def hard_checkout(commit, repo):
 
 
 def git_init(repo):
-    if len(git("status", cwd=repo).stderr):
-        # init a new repo
-        data_dir = os.path.join(os.path.dirname(__file__), "data")
-        shutil.copy(os.path.join(data_dir, ".gitignore"), repo)
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    # copy prefs.json file
+    if not os.path.exists(os.path.join(repo, "prefs.json")):
         shutil.copy(os.path.join(data_dir, "prefs.json"), repo)
+    # if repo should be tracked init it
+    cond = [len(git("status", cwd=repo).stderr),
+            prefs(os.path.join(repo, "prefs.json"))["tracked"]]
+    if all(cond):
+        shutil.copy(os.path.join(data_dir, ".gitignore"), repo)
         git("init", cwd=repo)
         git("checkout", "-b", "master", cwd=repo)

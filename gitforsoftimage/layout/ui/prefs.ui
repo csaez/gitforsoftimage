@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>255</height>
+    <width>397</width>
+    <height>229</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -123,72 +123,20 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QCheckBox" name="checkout_checkBox">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Checkout OnLoad Scene</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="dependencies_checkBox">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Include Dependencies</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
-         <widget class="Line" name="project_line">
+         <spacer name="git_spacer">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="deleterepo_button">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>0</width>
-            <height>24</height>
+            <width>20</width>
+            <height>40</height>
            </size>
           </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(212, 57, 57);
-color: rgb(225, 225, 225);</string>
-          </property>
-          <property name="text">
-           <string>Delete Repository</string>
-          </property>
-         </widget>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -246,21 +194,21 @@ color: rgb(225, 225, 225);</string>
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="git_spacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </widget>
-       </item>
-       <item>
-        <spacer name="git_spacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
@@ -272,9 +220,6 @@ color: rgb(225, 225, 225);</string>
   <tabstop>project_lineEdit</tabstop>
   <tabstop>tracked_checkBox</tabstop>
   <tabstop>commit_checkBox</tabstop>
-  <tabstop>checkout_checkBox</tabstop>
-  <tabstop>dependencies_checkBox</tabstop>
-  <tabstop>deleterepo_button</tabstop>
   <tabstop>user_lineEdit</tabstop>
   <tabstop>email_lineEdit</tabstop>
  </tabstops>
@@ -296,8 +241,25 @@ color: rgb(225, 225, 225);</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>commit_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>commit_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>144</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>tracked_clicked()</slot>
+  <slot>commit_clicked()</slot>
  </slots>
 </ui>

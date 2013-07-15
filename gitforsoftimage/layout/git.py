@@ -39,8 +39,10 @@ class Git(QDialog):
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))
         self.reload_clicked()
 
-    @bussy
     def reload_clicked(self):
+        if not bool(self.prefs["tracked"]):
+            self.prefs_clicked()
+            return
         # get branch
         branch = git("branch", cwd=self.repo).stdout
         if len(branch):
@@ -97,7 +99,13 @@ class Git(QDialog):
         self.reload_clicked()
 
     def prefs_clicked(self):
-        self.launcher(Prefs(self), self.ui.prefs_button.icon())
+        dialog = Prefs(self)
+        dialog.setWindowIcon(self.ui.prefs_button.icon())
+        dialog.exec_()
+        if not self.prefs["tracked"]:
+            self.close()
+            return
+        self.reload_clicked()
 
     def branch_clicked(self):
         dialog = Branches(self)
