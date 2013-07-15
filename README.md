@@ -12,7 +12,7 @@ Dependencies
 
 Installation
 ------------
-- Get a pre-packed xsiaddon from [here](#) and drop it on a softimage viewport.
+- Get a pre-packed xsiaddon from [here](http://goo.gl/DLnNq) and drop it on a softimage viewport.
 
 or...
 
