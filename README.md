@@ -20,8 +20,8 @@ or...
 
     pip install gitforsoftimage
 
-> Once it's installed just copy `GitForSoftimagePlugin.py` file to a softimage plugin directory.
+> Once it's installed just copy [`gitforsoftimage_plugin.py`](https://github.com/csaez/gitforsoftimage/blob/master/gitforsoftimage/gitforsoftimage_plugin.py) to a softimage plugin directory.
 
 Ussage
 ------
-Refer to the [documentation](#).
+Refer to the [documentation](https://github.com/csaez/gitforsoftimage/wiki).
