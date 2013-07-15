@@ -1,0 +1,1 @@
+Refer to the [documentation](https://github.com/csaez/gitforsoftimage/wiki).
