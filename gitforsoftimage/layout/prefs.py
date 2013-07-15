@@ -55,3 +55,6 @@ class Prefs(QDialog):
 
     def commit_clicked(self):
         self.prefs["commit_onsave"] = self.ui.commit_checkBox.isChecked()
+
+    def ignore_clicked(self):
+        os.startfile(os.path.join(self.repo, ".gitignore"))

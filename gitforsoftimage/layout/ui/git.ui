@@ -127,12 +127,12 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
            </spacer>
           </item>
           <item>
-           <widget class="QToolButton" name="sync_button">
+           <widget class="QToolButton" name="history_button">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sync&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;History&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>Sync</string>
+             <string>History</string>
             </property>
             <property name="iconSize">
              <size>
@@ -143,12 +143,12 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="history_button">
+           <widget class="QToolButton" name="remotes_button">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;History&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remotes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>History</string>
+             <string>Remotes</string>
             </property>
             <property name="iconSize">
              <size>
@@ -263,8 +263,8 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <tabstop>commit_button</tabstop>
   <tabstop>reload_button</tabstop>
   <tabstop>branch_button</tabstop>
-  <tabstop>sync_button</tabstop>
   <tabstop>history_button</tabstop>
+  <tabstop>remotes_button</tabstop>
   <tabstop>prefs_button</tabstop>
   <tabstop>files_listWidget</tabstop>
  </tabstops>
@@ -309,8 +309,8 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>history_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>215</x>
-     <y>70</y>
+     <x>170</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>433</x>
@@ -367,14 +367,14 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    </hints>
   </connection>
   <connection>
-   <sender>sync_button</sender>
+   <sender>remotes_button</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>sync_clicked()</slot>
+   <slot>remotes_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>157</x>
-     <y>66</y>
+     <x>226</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>440</x>
@@ -390,6 +390,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <slot>prefs_clicked()</slot>
   <slot>branch_clicked()</slot>
   <slot>reload_clicked()</slot>
-  <slot>sync_clicked()</slot>
+  <slot>remotes_clicked()</slot>
  </slots>
 </ui>

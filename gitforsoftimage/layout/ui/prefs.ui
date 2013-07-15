@@ -126,6 +126,28 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
          </layout>
         </item>
         <item>
+         <widget class="QToolButton" name="ignore_button">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Edit .gitignore</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="git_spacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -220,6 +242,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <tabstop>project_lineEdit</tabstop>
   <tabstop>tracked_checkBox</tabstop>
   <tabstop>commit_checkBox</tabstop>
+  <tabstop>ignore_button</tabstop>
   <tabstop>user_lineEdit</tabstop>
   <tabstop>email_lineEdit</tabstop>
  </tabstops>
@@ -257,9 +280,42 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tracked_checkBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>ignore_button</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>26</x>
+     <y>119</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>41</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ignore_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>ignore_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>168</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>tracked_clicked()</slot>
   <slot>commit_clicked()</slot>
+  <slot>ignore_clicked()</slot>
  </slots>
 </ui>

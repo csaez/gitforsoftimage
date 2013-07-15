@@ -17,7 +17,7 @@ class Git(QDialog):
     ICONS = {"branch_button": "iconmonstr-direction-6-icon.png",
              "history_button": "iconmonstr-time-5-icon.png",
              "prefs_button": "iconmonstr-gear-10-icon.png",
-             "sync_button": "iconmonstr-connection-2-ico.png",
+             "remotes_button": "iconmonstr-connection-2-ico.png",
              "reload_button": "iconmonstr-refresh-3-icon.png"}
 
     def __init__(self, parent=None):
@@ -37,12 +37,13 @@ class Git(QDialog):
         for widget, icon_file in self.ICONS.iteritems():
             icon_file = os.path.join(images_dir, icon_file)
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))
-        self.reload_clicked()
-
-    def reload_clicked(self):
         if not bool(self.prefs["tracked"]):
             self.prefs_clicked()
             return
+        self.reload_clicked()
+
+    @bussy
+    def reload_clicked(self):
         # get branch
         branch = git("branch", cwd=self.repo).stdout
         if len(branch):
@@ -115,8 +116,8 @@ class Git(QDialog):
     def history_clicked(self):
         self.launcher(History(self), self.ui.history_button.icon())
 
-    def sync_clicked(self):
-        self.launcher(Remotes(self), self.ui.sync_button.icon())
+    def remotes_clicked(self):
+        self.launcher(Remotes(self), self.ui.remotes_button.icon())
 
     def launcher(self, dialog, icon=None):
         if icon:
