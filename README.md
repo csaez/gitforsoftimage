@@ -8,7 +8,6 @@ Dependencies
 ------------
 - [Git](http://git-scm.com/)
 - [PyQtForSoftimage](https://github.com/caron/PyQtForSoftimage)
-- [wishlib](http://github.com/wishdev-project/wishlib)
 
 Installation
 ------------
