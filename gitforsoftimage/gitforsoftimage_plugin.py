@@ -44,6 +44,6 @@ def EndSceneSaveAs_OnEvent(in_ctxt):
 
 def launcher():
     from gitforsoftimage.gitutils import prefs
-    repo = Application.ActiveProject.Path
-    if prefs(os.path.join(repo, "prefs.json"))["tracked"]:
+    filepath = os.path.join(Application.ActiveProject.Path, "prefs.json")
+    if prefs(filepath).get("tracked"):
         Application.GitForSoftimage()
