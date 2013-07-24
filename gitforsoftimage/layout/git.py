@@ -37,7 +37,7 @@ class Git(QDialog):
         for widget, icon_file in self.ICONS.iteritems():
             icon_file = os.path.join(images_dir, icon_file)
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))
-        if not bool(self.prefs["tracked"]):
+        if not bool(self.prefs.get("tracked")):
             self.prefs_clicked()
             return
         self.reload_clicked()
@@ -103,7 +103,7 @@ class Git(QDialog):
         dialog = Prefs(self)
         dialog.setWindowIcon(self.ui.prefs_button.icon())
         dialog.exec_()
-        if not self.prefs["tracked"]:
+        if not self.prefs.get("tracked"):
             self.close()
             return
         self.reload_clicked()

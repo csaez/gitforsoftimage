@@ -1,38 +1,49 @@
+import os
+import json
+import shutil
+import subprocess
 from collections import namedtuple
 from functools import wraps
+
 from wishlib.si import si, sianchor
 from wishlib.qt.QtGui import QDialog
+
 from PyQt4.QtGui import QMessageBox
-import subprocess
-import json
-import os
-import shutil
 
 
 class prefs(dict):
 
-    """Extend a dictionary to save and load from file"""
-    def __init__(self, filepath, *args, **kwds):
+    """Extend a dict to save and load from a json file"""
+
+    def __init__(self, fp, *args, **kwds):
         super(prefs, self).__init__(*args, **kwds)
-        self.filepath = filepath
+        self.fp = fp
+        # init data from file
+        if os.path.exists(self.fp):
+            with open(self.fp) as fp:
+                data = json.load(fp)
+            for k, v in data.iteritems():
+                self.__setitem__(k, v)
 
     def __setitem__(self, key, value):
         super(prefs, self).__setitem__(key, value)
-        # save dict as json file
-        with open(self.filepath, "w") as f:
-            json.dump(self, f, indent=4)
+        self.__updatejson__()
 
-    def __getitem__(self, key):
-        # if there's a file, read it and return data from there
-        if os.path.exists(self.filepath):
-            with open(self.filepath) as f:
-                data = json.load(f)
-            value = data.get(key)
-            if value:
-                return value
-        # otherwise just do the usual thing
-        else:
-            super(prefs, self).__getitem__(key)
+    def __delitem__(self, key):
+        super(prefs, self).__delitem__(key)
+        self.__updatejson__()
+
+    def clear(self):
+        super(prefs, self).clear()
+        self.__updatejson__()
+
+    def update(self, other):
+        super(prefs, self).update(other)
+        self.__updatejson__()
+
+    def __updatejson__(self):
+        with open(self.fp, "w") as fp:
+            json.dump(self, fp, indent=4)
 
 
 def git(*args, **kwds):
