@@ -159,6 +159,13 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
            </widget>
           </item>
           <item>
+           <widget class="QToolButton" name="terminal_button">
+            <property name="text">
+             <string>Terminal</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QToolButton" name="prefs_button">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preferences&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -265,6 +272,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <tabstop>branch_button</tabstop>
   <tabstop>history_button</tabstop>
   <tabstop>remotes_button</tabstop>
+  <tabstop>terminal_button</tabstop>
   <tabstop>prefs_button</tabstop>
   <tabstop>files_listWidget</tabstop>
  </tabstops>
@@ -309,7 +317,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>history_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>170</x>
+     <x>129</x>
      <y>77</y>
     </hint>
     <hint type="destinationlabel">
@@ -373,12 +381,28 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
    <slot>remotes_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>226</x>
+     <x>177</x>
      <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>440</x>
      <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>terminal_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>terminal_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>203</x>
+     <y>64</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>432</x>
+     <y>187</y>
     </hint>
    </hints>
   </connection>
@@ -391,5 +415,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
   <slot>branch_clicked()</slot>
   <slot>reload_clicked()</slot>
   <slot>remotes_clicked()</slot>
+  <slot>terminal_clicked()</slot>
  </slots>
 </ui>

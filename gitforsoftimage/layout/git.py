@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from PyQt4 import uic, QtGui, QtCore
 
@@ -18,7 +19,8 @@ class Git(QDialog):
              "history_button": "iconmonstr-time-5-icon.png",
              "prefs_button": "iconmonstr-gear-10-icon.png",
              "remotes_button": "iconmonstr-connection-2-ico.png",
-             "reload_button": "iconmonstr-refresh-3-icon.png"}
+             "reload_button": "iconmonstr-refresh-3-icon.png",
+             "terminal_button": "iconmonstr-terminal-icon.png"}
 
     def __init__(self, parent=None):
         super(Git, self).__init__(parent)
@@ -124,3 +126,8 @@ class Git(QDialog):
             dialog.setWindowIcon(icon)
         if dialog.exec_():
             self.reload_clicked()
+
+    def terminal_clicked(self):
+        # TODO: crossplatform alternative
+        cmd = os.path.join(os.environ.get("windir"), "system32", "cmd.exe")
+        subprocess.Popen(cmd, cwd=self.repo)
