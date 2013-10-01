@@ -26,24 +26,27 @@ def GitForSoftimage_Execute():
 
 def EndFileExport_OnEvent(in_ctxt):
     log("EndFileExport_OnEvent called", C.siVerbose)
-    launcher()
+    # launcher()
     return False
 
 
 def EndSceneSave2_OnEvent(in_ctxt):
     log("EndSceneSave2_OnEvent called", C.siVerbose)
-    launcher()
+    launcher("commit_onsave")
     return False
 
 
 def EndSceneSaveAs_OnEvent(in_ctxt):
     log("EndSceneSaveAs_OnEvent called", C.siVerbose)
-    launcher()
+    launcher("commit_onsave")
     return False
 
 
-def launcher():
+def launcher(param):
     from gitforsoftimage.gitutils import prefs
     filepath = os.path.join(Application.ActiveProject.Path, "prefs.json")
-    if prefs(filepath).get("tracked"):
+    user_prefs = prefs(filepath)
+    if not user_prefs.get("tracked"):
+        return
+    if user_perfs.get(param):
         Application.GitForSoftimage()

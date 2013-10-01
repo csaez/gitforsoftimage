@@ -44,6 +44,9 @@ class Git(QDialog):
             return
         self.reload_clicked()
 
+    def _update_prefs(self):
+        self.prefs = prefs(os.path.join(self.repo, "prefs.json"))
+
     @bussy
     def reload_clicked(self):
         # get branch
@@ -105,6 +108,7 @@ class Git(QDialog):
         dialog = Prefs(self)
         dialog.setWindowIcon(self.ui.prefs_button.icon())
         dialog.exec_()
+        self._update_prefs()  # reload from file to reflect latest changes
         if not self.prefs.get("tracked"):
             self.close()
             return
