@@ -11,7 +11,7 @@ from .newremote import NewRemote
 class Remotes(QDialog):
     ICONS = {"reload_button": "iconmonstr-refresh-3-icon.png",
              "add_button": "iconmonstr-plus-icon.png",
-             "remove_button": "iconmonstr-x-mark-5-icon.png"}
+             "remove_button": "iconmonstr-minus-icon-256.png"}
 
     def __init__(self, parent=None):
         super(Remotes, self).__init__(parent)

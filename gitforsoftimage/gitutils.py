@@ -62,12 +62,10 @@ def git(*args, **kwds):
     kwds["stderr"] = subprocess.PIPE
     kwds["shell"] = True  # hide shell
     proc = subprocess.Popen(cmd, **kwds)
-    # get log and return value
     stdout, stderr = proc.communicate()
-    value = proc.wait()
-    # return a namedtuple with the results
-    results = namedtuple("git_call", "value, stdout, stderr")
-    return results._make((value, stdout, stderr))
+    # return results._make((value, stdout, stderr))
+    results = namedtuple("git_call", "stdout, stderr")
+    return results._make((stdout, stderr))
 
 
 def unlink_file(function):
@@ -78,8 +76,6 @@ def unlink_file(function):
         if opened:
             si.NewScene("", False)
         f = function(*args, **kwds)
-        if opened and os.path.exists(current_scene):
-            si.OpenScene(current_scene, False)
         return f
     return _decorated
 

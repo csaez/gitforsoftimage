@@ -16,7 +16,7 @@ class Branches(QDialog):
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
         self.ui = uic.loadUi(os.path.join(ui_dir, "branches.ui"), self)
         # set icons
-        icons = {"remove_button": "iconmonstr-x-mark-5-icon.png"}
+        icons = {"remove_button": "iconmonstr-minus-icon-256.png"}
         for widget, icon_file in icons.iteritems():
             icon_file = os.path.join(ui_dir, "images", icon_file)
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))
