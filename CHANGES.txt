@@ -1,3 +1,28 @@
-v0.1.0, 07-02-2013 -- Initial release.
-v0.1.1, 07-05-2013 -- API cleanup, softimage projects support.
-v0.2.0, 07-12-2013 -- Redesign + branch support
+2013-07-03 23:59:15     1559 +1559    -0 0e0ebcb cesarte@gmail.com 	First commit
+2013-07-04 00:00:41     1559    +1    -1 c1c2d06 cesarte@gmail.com 	README updated
+2013-07-05 16:22:50     1571  +570  -558 5ad7647 cesarte@gmail.com 	v0.1.1
+2013-07-05 16:32:11     1574   +30   -27 0b651c6 cesarte@gmail.com 	git wrapper moved to its own file
+2013-07-05 16:33:31     1574    +1    -1 105e777 cesarte@gmail.com 	typo
+2013-07-06 09:44:49     2165  +681   -90 2784410 cesarte@gmail.com 	project preferences, commit/checkout commands, include dependencies (WIP)
+2013-07-12 19:47:26     2722 +1390  -833 9d442a3 cesarte@gmail.com 	v0.2.0
+2013-07-12 20:00:17     2555    +0  -167 2532855 cesarte@gmail.com 	gitignore updated
+2013-07-12 17:01:44     2576   +21    -0 b226475 cesarte@gmail.com 	Create .gitignore
+2013-07-12 17:02:15     2581    +5    -0 81b7dd6 cesarte@gmail.com 	Create prefs.json
+2013-07-13 18:05:37     3169  +750  -162 56d80b6 cesarte@gmail.com 	remotes added
+2013-07-14 21:01:29     3146  +118  -141 07e4686 cesarte@gmail.com 	v0.2.1 - prefs are working now
+2013-07-14 21:30:02     3146    +2    -2 c4471a3 cesarte@gmail.com 	README updated
+2013-07-14 22:07:13     3206   +80   -20 a9e1138 cesarte@gmail.com 	'edit gitignore'  button to prefs
+2013-07-14 22:56:03     3206    +1    -1 47e1bda cesarte@gmail.com 	.xsiaddon link added
+2013-07-15 00:08:26     3206    +0    -0 a2a9278 cesarte@gmail.com 	prefs screenshot
+2013-07-15 10:42:46     3207    +1    -0 b6736eb cesarte@gmail.com 	commits screenshot
+2013-07-15 11:25:24     3207    +0    -0 ddc82f9 cesarte@gmail.com 	history screenshot
+2013-07-15 12:11:58     3207    +0    -0 c8da1a1 cesarte@gmail.com 	branch screenshot
+2013-07-15 15:32:42     3207    +0    -0 ab31eaa cesarte@gmail.com 	remotes screenshot
+2013-07-19 11:24:30     3207    +2    -2 f41f5f8 cesarte@gmail.com 	BUGFIX: key not found on save
+2013-07-19 12:38:49     3206    +0    -1 1f5ffcc cesarte@gmail.com 	readme updated
+2013-07-24 17:19:11     3217   +35   -24 ef05904 cesarte@gmail.com 	BUGFIX: key not found in prefs (untracked repos)
+2013-08-02 15:02:31     3249   +35    -3 81f5fc8 cesarte@gmail.com 	terminal button added
+2013-10-01 16:47:33     3256   +12    -5 539c45e cesarte@gmail.com 	BUGFIXES: #3 and #4
+2013-10-02 19:47:30     3256    +3    -3 ed6895a cesarte@gmail.com 	BUGFIX: #4
+2013-12-30 12:47:30     3252    +5    -9 3bc86bb cesarte@gmail.com 	workaround issue #6
+2014-01-30 16:56:44     3398  +206   -60 74f1a91 cesarte@gmail.com 	GPL3 License
