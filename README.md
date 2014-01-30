@@ -15,11 +15,10 @@ Installation
 
 or...
 
-- Install/download the package from the Python Package Index.
+- Clone the repo, copy `gitforsoftimage_plugin.py` file to a softimage plugin
+directory and install the python modules as following:
 
-    pip install gitforsoftimage
-
-> Once it's installed just copy [`gitforsoftimage_plugin.py`](https://github.com/csaez/gitforsoftimage/blob/master/gitforsoftimage/gitforsoftimage_plugin.py) to a softimage plugin directory.
+    python setup.py install
 
 Ussage
 ------
