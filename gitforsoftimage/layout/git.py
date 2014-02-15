@@ -19,7 +19,7 @@ import subprocess
 from wishlib.si import si
 from wishlib.utils import JSONDict
 from wishlib.qt import QtGui, QtCore, loadUi, widgets
-# from wishlib.qt.decorators import bussy
+from wishlib.qt.decorators import bussy
 
 from ..gitutils import git, git_init
 from .history import History
@@ -61,7 +61,7 @@ class Git(widgets.QDialog):
     def _update_prefs(self):
         self.prefs = JSONDict(os.path.join(self.repo, "prefs.json"))
 
-    # @bussy
+    @bussy
     def reload_clicked(self):
         # get branch
         branch = git("branch", cwd=self.repo).stdout
@@ -90,7 +90,7 @@ class Git(widgets.QDialog):
         toggle = [2, 2, 0]
         item.setCheckState(toggle[int(item.checkState())])
 
-    # @bussy
+    @bussy
     def commit_clicked(self):
         # check
         message = str(self.ui.message_lineEdit.text())
