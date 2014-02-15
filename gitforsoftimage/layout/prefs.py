@@ -16,23 +16,23 @@
 import os
 
 from wishlib.si import si
-from wishlib.qt.QtGui import QDialog
-from PyQt4 import uic
+from wishlib.qt import widgets, loadUi
+from wishlib.utils import JSONDict
 
-from ..gitutils import git, prefs, git_init
+from ..gitutils import git, git_init
 
 
-class Prefs(QDialog):
+class Prefs(widgets.QDialog):
 
     def __init__(self, parent=None):
         super(Prefs, self).__init__(parent)
         self.repo = si.ActiveProject.Path
-        self.prefs = prefs(os.path.join(self.repo, "prefs.json"))
+        self.prefs = JSONDict(os.path.join(self.repo, "prefs.json"))
         self.initUI()
 
     def initUI(self):
         uifile = os.path.join(os.path.dirname(__file__), "ui", "prefs.ui")
-        self.ui = uic.loadUi(uifile, self)
+        self.ui = loadUi(uifile, self)
         # project settings
         self.ui.project_lineEdit.setText(self.repo)
         self.ui.tracked_checkBox.setChecked(bool(self.prefs["tracked"]))

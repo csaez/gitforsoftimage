@@ -15,21 +15,20 @@
 
 import os
 
-from PyQt4 import uic, QtGui
 from wishlib.si import si
-from wishlib.qt.QtGui import QDialog
+from wishlib.qt import QtGui, loadUi, widgets
 
 from ..gitutils import git, unlink_file, hard_checkout
-from.merge import Merge
+from .merge import Merge
 
 
-class Branches(QDialog):
+class Branches(widgets.QDialog):
 
     def __init__(self, parent=None):
         super(Branches, self).__init__(parent)
         self.repo = si.ActiveProject.Path
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
-        self.ui = uic.loadUi(os.path.join(ui_dir, "branches.ui"), self)
+        self.ui = loadUi(os.path.join(ui_dir, "branches.ui"), self)
         # set icons
         icons = {"remove_button": "iconmonstr-minus-icon-256.png"}
         for widget, icon_file in icons.iteritems():

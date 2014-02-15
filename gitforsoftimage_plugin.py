@@ -14,7 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from wishlib.si import log, C, show_qt
+from wishlib.si import si, log, C, show_qt
+from wishlib.utils import JSONDict
 
 
 def XSILoadPlugin(in_reg):
@@ -58,10 +59,9 @@ def EndSceneSaveAs_OnEvent(in_ctxt):
 
 
 def launcher(param):
-    from gitforsoftimage.gitutils import prefs
-    filepath = os.path.join(Application.ActiveProject.Path, "prefs.json")
+    filepath = os.path.join(si.ActiveProject.Path, "prefs.json")
     if not os.path.exists(filepath):
         return
-    user_prefs = prefs(filepath)
+    user_prefs = JSONDict(filepath)
     if user_prefs.get("tracked") and user_prefs.get(param):
-        Application.GitForSoftimage()
+        si.GitForSoftimage()

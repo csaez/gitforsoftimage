@@ -16,20 +16,19 @@
 import os
 import subprocess
 
-from PyQt4 import uic, QtGui, QtCore
-
 from wishlib.si import si
-from wishlib.qt.QtGui import QDialog
-from wishlib.qt.decorators import bussy
+from wishlib.utils import JSONDict
+from wishlib.qt import QtGui, QtCore, loadUi, widgets
+# from wishlib.qt.decorators import bussy
 
-from ..gitutils import git, prefs, git_init
+from ..gitutils import git, git_init
 from .history import History
 from .branches import Branches
 from .remotes import Remotes
 from .prefs import Prefs
 
 
-class Git(QDialog):
+class Git(widgets.QDialog):
     ICONS = {"branch_button": "iconmonstr-direction-6-icon.png",
              "history_button": "iconmonstr-time-5-icon.png",
              "prefs_button": "iconmonstr-gear-10-icon.png",
@@ -40,13 +39,13 @@ class Git(QDialog):
     def __init__(self, parent=None):
         super(Git, self).__init__(parent)
         self.repo = si.ActiveProject.Path
-        self.prefs = prefs(os.path.join(self.repo, "prefs.json"))
+        self.prefs = JSONDict(os.path.join(self.repo, "prefs.json"))
         git_init(self.repo)
         self.initUI()
 
     def initUI(self):
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
-        self.ui = uic.loadUi(os.path.join(ui_dir, "git.ui"), self)
+        self.ui = loadUi(os.path.join(ui_dir, "git.ui"), self)
         # set icons
         images_dir = os.path.join(ui_dir, "images")
         icon_file = os.path.join(images_dir, "git-icon.png")
@@ -60,9 +59,9 @@ class Git(QDialog):
         self.reload_clicked()
 
     def _update_prefs(self):
-        self.prefs = prefs(os.path.join(self.repo, "prefs.json"))
+        self.prefs = JSONDict(os.path.join(self.repo, "prefs.json"))
 
-    @bussy
+    # @bussy
     def reload_clicked(self):
         # get branch
         branch = git("branch", cwd=self.repo).stdout
@@ -91,7 +90,7 @@ class Git(QDialog):
         toggle = [2, 2, 0]
         item.setCheckState(toggle[int(item.checkState())])
 
-    @bussy
+    # @bussy
     def commit_clicked(self):
         # check
         message = str(self.ui.message_lineEdit.text())

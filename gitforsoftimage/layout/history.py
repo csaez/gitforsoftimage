@@ -16,20 +16,19 @@
 import os
 import re
 
-from PyQt4 import uic, QtGui
 from wishlib.si import si
-from wishlib.qt.QtGui import QDialog
+from wishlib.qt import QtGui, loadUi, widgets
 
 from ..gitutils import git, unlink_file, hard_checkout
 
 
-class History(QDialog):
+class History(widgets.QDialog):
 
     def __init__(self, parent=None):
         super(History, self).__init__(parent)
         self.repo = si.ActiveProject.Path
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
-        self.ui = uic.loadUi(os.path.join(ui_dir, "history.ui"), self)
+        self.ui = loadUi(os.path.join(ui_dir, "history.ui"), self)
         self.initUI()
 
     def initUI(self):

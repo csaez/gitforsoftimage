@@ -15,14 +15,13 @@
 
 import os
 
-from PyQt4 import uic, QtGui
+from wishlib.qt import QtGui, loadUi, widgets
 from wishlib.si import si, OverrideWin32Controls
-from wishlib.qt.QtGui import QDialog
 
 from ..gitutils import git
 
 
-class NewRemote(QDialog):
+class NewRemote(widgets.QDialog):
     ICONS = {"dir_button": "iconmonstr-folder-icon.png"}
 
     def __init__(self, parent=None):
@@ -33,7 +32,7 @@ class NewRemote(QDialog):
 
     def initUI(self):
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
-        self.ui = uic.loadUi(os.path.join(ui_dir, "new_remote.ui"), self)
+        self.ui = loadUi(os.path.join(ui_dir, "new_remote.ui"), self)
         for widget, icon_file in self.ICONS.iteritems():
             icon_file = os.path.join(ui_dir, "images", icon_file)
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))

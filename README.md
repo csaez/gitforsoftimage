@@ -8,15 +8,17 @@ Dependencies
 ------------
 - [Git](http://git-scm.com/)
 - [PyQtForSoftimage](https://github.com/caron/PyQtForSoftimage)
+- [wishlib](https://github.com/csaez/wishlib)
 
 Installation
 ------------
-- Get a pre-packed xsiaddon from [here](http://goo.gl/DLnNq) and drop it on a softimage viewport.
+- Get a pre-packed xsiaddon from [here](http://goo.gl/DLnNq) (includes
+`wishlib`) and drop it on a softimage viewport.
 
 or...
 
-- Clone the repo, copy `gitforsoftimage_plugin.py` file to a softimage plugin
-directory and install the python modules as following:
+- Clone the repo, copy/symlink `gitforsoftimage_plugin.py` to a softimage
+plugin directory and install the python modules typing in a terminal:
 
     python setup.py install
 

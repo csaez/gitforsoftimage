@@ -15,15 +15,14 @@
 
 import os
 
-from PyQt4 import uic, QtGui
 from wishlib.si import si
-from wishlib.qt.QtGui import QDialog
+from wishlib.qt import QtGui, loadUi, widgets
 
 from ..gitutils import git
 from .newremote import NewRemote
 
 
-class Remotes(QDialog):
+class Remotes(widgets.QDialog):
     ICONS = {"reload_button": "iconmonstr-refresh-3-icon.png",
              "add_button": "iconmonstr-plus-icon.png",
              "remove_button": "iconmonstr-minus-icon-256.png"}
@@ -35,7 +34,7 @@ class Remotes(QDialog):
 
     def initUI(self):
         ui_dir = os.path.join(os.path.dirname(__file__), "ui")
-        self.ui = uic.loadUi(os.path.join(ui_dir, "remotes.ui"), self)
+        self.ui = loadUi(os.path.join(ui_dir, "remotes.ui"), self)
         for widget, icon_file in self.ICONS.iteritems():
             icon_file = os.path.join(ui_dir, "images", icon_file)
             getattr(self.ui, widget).setIcon(QtGui.QIcon(icon_file))
